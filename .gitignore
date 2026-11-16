@@ -1,0 +1,16 @@
+.env
+.demo-db/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+app/assets/posters/*
+!app/assets/posters/.gitkeep

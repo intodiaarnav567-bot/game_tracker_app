@@ -1,0 +1,9 @@
+streamlit>=1.57,<2
+mysql-connector-python>=9,<27
+bcrypt>=4,<6
+pandas>=2,<4
+plotly>=6,<8
+Pillow>=11,<13
+requests>=2.32,<3
+python-dotenv>=1,<2
+pytest>=8,<10
