@@ -70,6 +70,37 @@ Keep the launcher terminal open while using the app. Press `Ctrl+C` in that term
 
 These are application demo credentials only. Private database passwords are generated locally and are never committed to Git.
 
+### Streamlit Community Cloud deployment
+
+Community Cloud runs the Streamlit frontend, but it cannot run the private MySQL
+instance created by `run_demo.py`. Use a reachable hosted MySQL instance (for
+example, a Railway MySQL service), then import the database files in this order:
+
+1. `schema.sql`
+2. `sample_data (1).sql`
+3. `game_tracker_role_setup.sql`
+4. `sql/00_app_extension.sql` (or run `python -m sql.setup_app` with DBA settings)
+
+Deploy `app/main.py` from the `main` branch. In the app's Streamlit Cloud
+Secrets, add the hosted database values using these keys:
+
+```toml
+MYSQL_HOST = "your-host"
+MYSQL_PORT = "3306"
+MYSQL_DATABASE = "game_tracker"
+MYSQL_LOGIN_USER = "app_login_user"
+MYSQL_LOGIN_PASSWORD = "..."
+MYSQL_GAMER_USER = "app_gamer"
+MYSQL_GAMER_PASSWORD = "..."
+MYSQL_PUBLISHER_USER = "app_publisher"
+MYSQL_PUBLISHER_PASSWORD = "..."
+MYSQL_ADMIN_USER = "app_admin"
+MYSQL_ADMIN_PASSWORD = "..."
+DEMO_MODE = "true"
+```
+
+Do not commit these credentials or `.streamlit/secrets.toml` to GitHub.
+
 ## Entity-relationship diagram
 
 The diagram below is generated from `schema.sql` and `sql/00_app_extension.sql`. `App_Account` is the login table used by the Streamlit application. `User_Account` remains part of the original base schema. `App_Lock` is an internal single-row table used to serialize administrative operations.
